@@ -1,363 +1,261 @@
 
-import { SiteContent } from './types';
+import { SiteContent, Question } from './types';
+
+export const QUESTIONS: Record<'es' | 'en', Question[]> = {
+  es: [
+    {
+      id: 'q1',
+      category: 'Personas',
+      text: '¿Cuál es la principal característica del liderazgo servicial en proyectos ágiles?',
+      options: ['Control centralizado', 'Eliminación de impedimentos', 'Asignación de tareas diaria', 'Reporte de horas'],
+      correctAnswer: 1,
+      explanation: 'El líder servicial se enfoca en eliminar obstáculos para que el equipo pueda entregar valor.'
+    },
+    {
+      id: 'q2',
+      category: 'Procesos',
+      text: 'En PMBOK 8, ¿cómo se define el enfoque de desarrollo híbrido?',
+      options: ['Solo Waterfall', 'Solo Agile', 'Combinación de predictivo y adaptativo', 'Gestión sin procesos'],
+      correctAnswer: 2,
+      explanation: 'El enfoque híbrido utiliza lo mejor de ambos mundos según las necesidades del proyecto.'
+    }
+    // Añadir más preguntas aquí para completar las 9 categorías
+  ],
+  en: [
+    {
+      id: 'q1',
+      category: 'People',
+      text: 'What is the primary characteristic of servant leadership in agile projects?',
+      options: ['Centralized control', 'Removing impediments', 'Daily task assignment', 'Time tracking'],
+      correctAnswer: 1,
+      explanation: 'The servant leader focuses on clearing obstacles so the team can deliver value.'
+    },
+    {
+      id: 'q2',
+      category: 'Processes',
+      text: 'In PMBOK 8, how is the hybrid development approach defined?',
+      options: ['Waterfall only', 'Agile only', 'Combination of predictive and adaptive', 'Management without processes'],
+      correctAnswer: 2,
+      explanation: 'The hybrid approach uses the best of both worlds based on project needs.'
+    }
+  ]
+};
 
 export const CONTENT: Record<'es' | 'en', SiteContent> = {
   es: {
     nav: {
-      services: 'Especialidades',
-      whyUs: 'Nosotros',
-      calc: 'Ahorros',
-      contact: 'Contacto',
-      cta: 'Cotizar'
+      principles: 'Principios',
+      domains: 'Dominios',
+      processes: 'Procesos',
+      exam: 'Simulador',
+      cta: 'Iniciar Examen'
     },
     hero: {
-      badge: 'Expertos en Ingeniería Estructural, Geotécnica y Civil',
-      title: 'Ingeniería Lean.',
-      titleAccent: 'Optimizamos CAPEX en Energía y Minería.',
-      desc: 'Soporte técnico especializado para proyectos Utility-Scale, Líneas de Transmisión e Infraestructura Minera. Reducimos costos entre un 10-25% mediante una red de ingenieros expertos senior freelance.',
-      ctaPrimary: 'Optimizar mi Proyecto',
-      ctaSecondary: 'Nuestras Especialidades'
+      badge: 'Guía de Maestría PMBOK 8 - PMP 2024/2025',
+      title: 'Domina el Futuro de la',
+      titleAccent: 'Gestión de Proyectos.',
+      desc: 'Prepárate para el examen PMP con el estándar PMBOK 8. Enfoque en principios, entrega de valor, inteligencia artificial y sostenibilidad.',
+      ctaPrimary: 'Simulador de Examen',
+      ctaSecondary: 'Explorar Dominios'
     },
-    whyChoose: {
-      title: '¿Por qué elegir Lean Engineering?',
-      description: 'El modelo de ingeniería tradicional está obsoleto. Las grandes firmas priorizan las horas facturables y la cobertura de sus gastos fijos. Nosotros priorizamos la eficiencia del proyecto y el ahorro real del cliente.',
-      features: [
-        { title: 'Red Freelance Curada', desc: 'Las mejores mentes, ensambladas según la necesidad de cada proyecto.' },
-        { title: 'Ahorros Mensurables', desc: 'Foco en el resultado final del negocio, siempre.' }
-      ],
-      cta: 'Únase a nuestra Red de Clientes',
-      cards: [
-        {
-          highlight: '40%',
-          subtitle: 'MENORES HONORARIOS',
-          title: 'Gastos fijos ultra-bajos',
-          description: 'Las firmas tradicionales cargan oficinas masivas en su factura. Nuestro modelo los reduce casi a cero, traspasando el 100% de ese ahorro a usted.'
-        },
-        {
-          highlight: '100%',
-          subtitle: 'EXPERTOS SENIOR',
-          title: 'Solo Talento Senior',
-          description: 'Su proyecto no será un campo de entrenamiento para juniors. Solo desplegamos ingenieros con más de 15 años de experiencia técnica específica.'
-        },
-        {
-          highlight: 'LatAm',
-          subtitle: 'EXPERTISE LOCAL',
-          title: 'Especialidad Regional',
-          description: 'Basados en Chile, entendemos los matices regulatorios, climáticos y logísticos de los proyectos de infraestructura en toda Latinoamérica.'
-        },
-        {
-          highlight: 'ROI',
-          subtitle: 'ENFOCADO EN DATOS',
-          title: 'Ahorros Transparentes',
-          description: 'No nos escondemos tras tecnicismos. Entregamos KPIs claros y medibles para cada cambio de diseño propuesto, mostrando exactamente cuánto ahorra.'
-        }
-      ]
-    },
-    valueModels: {
-      title: 'Modelos de Creación de Valor y Riesgo Compartido',
-      description: 'Enfoques comerciales diseñados para alinear nuestros incentivos con el éxito financiero de su proyecto.',
+    principles: {
+      title: '6 Principios de Gestión',
       items: [
-        {
-          title: 'Revisión y Optimización de Diseño',
-          description: 'Auditorías técnicas profundas para identificar ineficiencias y simplificar sistemas.',
-          points: ['Reducción 10-25% CAPEX/OPEX', 'Menos desperdicio de materiales', 'Mejor rendimiento']
-        },
-        {
-          title: 'Ingeniería de Valor',
-          description: 'Análisis riguroso para asegurar funciones al menor costo de ciclo de vida.',
-          points: ['Análisis de constructibilidad', 'Materiales alternativos', 'Modelado de costos']
-        },
-        {
-          title: 'Soporte Senior On-Demand',
-          description: 'Acceso a ingenieros senior sin los costos fijos de una gran firma.',
-          points: ['Retainers flexibles', 'Tarifas por proyecto', 'Expertos especialistas']
-        },
-        {
-          title: 'Modelo de Riesgo Compartido',
-          description: 'Cobramos en base a los ahorros reales generados para su proyecto.',
-          points: ['Cero riesgo inicial', 'Incentivos por desempeño', 'ROI transparente']
-        }
+        { id: 'p1', title: 'Responsabilidad', desc: 'Ser un administrador diligente y respetuoso.', icon: 'fa-shield-halved' },
+        { id: 'p2', title: 'Equipo', desc: 'Crear un entorno colaborativo.', icon: 'fa-users' },
+        { id: 'p3', title: 'Interesados', desc: 'Involucrar eficazmente a los stakeholders.', icon: 'fa-handshake' },
+        { id: 'p4', title: 'Valor', desc: 'Enfoque continuo en la entrega de beneficios.', icon: 'fa-gem' },
+        { id: 'p5', title: 'Sistemas', desc: 'Reconocer y responder a las interacciones.', icon: 'fa-diagram-project' },
+        { id: 'p6', title: 'Liderazgo', desc: 'Motivar, influir y aprender.', icon: 'fa-crown' }
       ]
     },
-    services: {
-      title: 'Áreas de Soporte Técnico',
+    domains: {
+      title: '7 Dominios de Desempeño',
+      desc: 'Áreas críticas para la entrega efectiva de resultados del proyecto.',
       items: [
-        {
-          id: 'renewable-energy',
-          title: 'Energía Renovable (Wind, Solar & BESS)',
-          description: 'Soporte en ingeniería civil y estructural para proyectos Utility-scale. Revisión de geotecnia y diseño de fundaciones para aerogeneradores y parques solares.',
-          icon: 'fa-wind',
-          benefits: ['Revisión Geotécnica Senior', 'Optimización de Fundaciones', 'Sistemas BESS y Skids']
-        },
-        {
-          id: 'mining-structural',
-          title: 'Estructuras Metálicas y Minería',
-          description: 'Revisión técnica de ingeniería estructural para bodegas, edificios industriales y naves logísticas en el sector minero e industrial.',
-          icon: 'fa-helmet-safety',
-          benefits: ['Optimización de Peso (Acero)', 'Bodegas e Infraestructura', 'Diseño de Racks y Soportes']
-        },
-        {
-          id: 'power-transmission',
-          title: 'Transmisión y Torres Eléctricas',
-          description: 'Optimización estructural avanzada de torres de alta tensión (celosía y postes). Reducción de CAPEX mediante ingeniería de valor en líneas de transmisión.',
-          icon: 'fa-bolt',
-          benefits: ['Optimización de Torres AT', 'Ingeniería de Detalle', 'Reducción de Materiales']
-        },
-        {
-          id: 'seismic-certification',
-          title: 'Certificación Sísmica de Equipos',
-          description: 'Calificación y certificación sísmica de equipos críticos (transformadores, tableros, inversores) para plantas industriales y subestaciones.',
-          icon: 'fa-house-crack',
-          benefits: ['Certificación bajo Norma', 'Análisis de Anclajes', 'Continuidad Operativa']
-        }
+        { id: 'd1', title: 'Interesados', desc: 'Gestión proactiva de expectativas.', topics: ['Identificación', 'Compromiso'], icon: 'fa-user-group' },
+        { id: 'd2', title: 'Equipo', desc: 'Desarrollo de capacidades y cultura.', topics: ['Liderazgo', 'Cultura'], icon: 'fa-people-group' },
+        { id: 'd3', title: 'Enfoque de Desarrollo', desc: 'Cadencia de entrega y ciclo de vida.', topics: ['Agile', 'Predictivo', 'Híbrido'], icon: 'fa-code-branch' },
+        { id: 'd4', title: 'Planificación', desc: 'Organización de recursos y tiempo.', topics: ['Estimación', 'Cronograma'], icon: 'fa-calendar-check' },
+        { id: 'd5', title: 'Trabajo del Proyecto', desc: 'Gestión de procesos físicos y técnicos.', topics: ['Recursos', 'Adquisiciones'], icon: 'fa-briefcase' },
+        { id: 'd6', title: 'Entrega', desc: 'Alcance y calidad de los entregables.', topics: ['Valor', 'Calidad'], icon: 'fa-truck-fast' },
+        { id: 'd7', title: 'Medición', desc: 'Evaluación del progreso y desempeño.', topics: ['KPIs', 'Métricas'], icon: 'fa-chart-simple' }
       ]
     },
-    whyUs: {
-      title: 'Ingeniería con',
-      titleAccent: 'Enfoque en Valor',
-      items: [
-        {
-          title: 'Disciplinas Especializadas',
-          content: 'Contamos con expertos senior en Ingeniería Estructural, Civil y Geotécnica enfocados exclusivamente en sectores críticos.',
-          icon: 'fa-compass-drafting'
-        },
-        {
-          title: 'Reducción de Cantidades',
-          content: 'Auditamos diseños existentes para reducir el sobre-dimensionamiento en acero y concreto sin comprometer la seguridad.',
-          icon: 'fa-weight-hanging'
-        },
-        {
-          title: 'Soporte en Normativa LatAm',
-          content: 'Expertos en normas sísmicas y de viento de Chile y la región, garantizando diseños seguros y eficientes.',
-          icon: 'fa-globe-americas'
-        }
+    processes: {
+      title: '40 Procesos en 5 Áreas de Foco',
+      desc: 'El flujo de trabajo estructurado para la excelencia operativa.',
+      areas: [
+        { name: 'Iniciación', count: 2, desc: 'Definición inicial y autorización.' },
+        { name: 'Planificación', count: 24, desc: 'Ruta detallada de ejecución.' },
+        { name: 'Ejecución', count: 10, desc: 'Realización del trabajo.' },
+        { name: 'Monitoreo', count: 12, desc: 'Control de variaciones.' },
+        { name: 'Cierre', count: 1, desc: 'Finalización formal.' }
       ]
     },
-    comparison: {
-      title: 'Por qué elegir nuestro soporte especializado',
-      desc: 'A diferencia de las consultoras generales, aplicamos ingeniería de precisión para maximizar el ROI de su proyecto.',
-      thPillar: 'Pilar Estratégico',
-      thTrad: 'Consultora Tradicional',
-      thLean: 'Nuestro Soporte Lean',
-      ctaTitle: '¿Busca reducir el CAPEX de su proyecto?',
-      ctaDesc: 'Nuestras revisiones técnicas en geotecnia y estructuras suelen pagarse solas con los ahorros en materiales.',
-      ctaBtn: 'Solicitar Auditoría Técnica',
-      rows: [
-        { feature: 'Especialización', traditional: 'Generalista / Multidisciplina', leanEngineering: 'Foco en Energía, Minería e Infra' },
-        { feature: 'Ingeniería de Valor', traditional: 'Diseño conservador estándar', leanEngineering: 'Optimización proactiva de costos' },
-        { feature: 'Diseño de Fundaciones', traditional: 'Sobre-dimensionado por defecto', leanEngineering: 'Ajuste Geotécnico Preciso' },
-        { feature: 'Certificación Sísmica', traditional: 'Sub-contratado o genérico', leanEngineering: 'Especialista In-house Senior' }
-      ]
+    business: {
+      title: 'Evolución del Negocio',
+      aiTitle: 'IA en Gestión de Proyectos',
+      aiDesc: 'Optimización de cronogramas y análisis predictivo de riesgos mediante algoritmos avanzados.',
+      sustainTitle: 'Sostenibilidad',
+      sustainDesc: 'Integración de criterios ESG y economía circular en el ciclo de vida del proyecto.'
+    },
+    exam: {
+      title: 'Simulador PMP 8',
+      desc: 'Banco de preguntas categorizado para tu certificación.',
+      categories: ['Personas', 'Procesos', 'Negocio', 'Agile', 'Híbrido', 'Riesgos', 'Valor', 'IA', 'Sostenibilidad'],
+      startBtn: 'Comenzar Práctica',
+      nextBtn: 'Siguiente Pregunta',
+      finishBtn: 'Finalizar y Ver Puntaje',
+      scoreTitle: 'Tu Resultado Final'
     },
     calc: {
-      title: 'Estimador de Ahorros',
-      desc: 'Calcule el potencial de ahorro en su proyecto de infraestructura o energía mediante optimización técnica.',
-      labelBudget: 'Presupuesto del Proyecto (Miles de USD)',
-      labelComplexity: 'Complejidad del Diseño',
-      complexities: ['Estándar', 'Avanzado', 'Crítico'],
-      note: '*Cálculos basados en ahorros históricos de 10-25% en partidas estructurales y civiles. Valores en miles de USD.',
-      resultTitle: 'Ahorros Est. (Miles de USD)',
-      labelFee: 'Honorarios Est. (Miles)',
-      labelRoi: 'ROI del Servicio',
-      btn: 'Obtener Informe de Ahorros'
+      title: 'Calculadora de Ahorro',
+      desc: 'Estima el impacto financiero de la optimización de procesos.',
+      labelBudget: 'Presupuesto CAPEX',
+      labelComplexity: 'Complejidad del Proyecto',
+      complexities: ['Simple', 'Media', 'Compleja'],
+      note: 'Los cálculos son estimaciones basadas en benchmarks de la industria.',
+      resultTitle: 'Ahorro Estimado',
+      labelFee: 'Honorarios Típicos',
+      labelRoi: 'Multiplicador de Retorno',
+      btn: 'Solicitar Auditoría'
     },
-    contact: {
-      title: 'Iniciemos la Optimización',
-      desc: 'Comparta los detalles de su proyecto de energía, minería o infraestructura para una evaluación técnica preliminar.',
-      labels: {
-        name: 'Nombre Completo',
-        email: 'Correo Electrónico',
-        sector: 'Sector del Proyecto',
-        service: 'Especialidad Requerida',
-        brief: 'Resumen (Renovables, Torres, Minería...)',
-        submit: 'Enviar Solicitud de Soporte'
-      },
-      sectors: ['Energía Solar / Eólica', 'Sistemas BESS', 'Transmisión Eléctrica', 'Minería / Industrial'],
-      services: ['Revisión Geotécnica / Fundaciones', 'Optimización Estructural', 'Certificación Sísmica', 'Ingeniería de Valor'],
-      info: {
-        location: 'Santiago, Chile',
-        email: 'leaneng@proton.me',
-        phone: '+56 9 5250 4101'
-      }
+    comparison: {
+      title: 'Diferencia Competitiva',
+      desc: 'Por qué el enfoque Lean Engineering supera la gestión tradicional.',
+      thPillar: 'Pilar',
+      thTrad: 'Gestión Tradicional',
+      thLean: 'Lean Engineering',
+      rows: [
+        { feature: 'Tiempo de Entrega', traditional: 'Lento / Secuencial', leanEngineering: 'Rápido / Ágil' },
+        { feature: 'Costo', traditional: 'Rígido / Sobre-presupuesto', leanEngineering: 'Optimizado / Bajo Demanda' },
+        { feature: 'Calidad', traditional: 'Basada en Inspección', leanEngineering: 'Basada en el Proceso' }
+      ],
+      ctaTitle: '¿Listo para el cambio?',
+      ctaDesc: 'Mejora tus márgenes operativos hoy mismo.',
+      ctaBtn: 'Comenzar ahora'
+    },
+    whyChoose: {
+      title: 'Por qué elegirnos',
+      description: 'Combinamos experiencia técnica con metodologías ágiles avanzadas.',
+      features: [
+        { title: 'Certificación Global', desc: 'Expertos certificados en PMP y PMBOK 8.' },
+        { title: 'IA Aplicada', desc: 'Automatización de tareas repetitivas.' }
+      ],
+      cta: 'Ver Detalles',
+      cards: [
+        { highlight: '15%', subtitle: 'AHORRO MEDIO', title: 'Reducción de Costos', description: 'Optimizamos el gasto operativo sin sacrificar calidad.' },
+        { highlight: '2X', subtitle: 'VELOCIDAD', title: 'Entrega Acelerada', description: 'Reducimos el time-to-market de tus proyectos.' }
+      ]
     }
   },
   en: {
     nav: {
-      services: 'Specialties',
-      whyUs: 'Why Us',
-      calc: 'Savings',
-      contact: 'Contact',
-      cta: 'Get Quote'
+      principles: 'Principles',
+      domains: 'Domains',
+      processes: 'Processes',
+      exam: 'Simulator',
+      cta: 'Start Exam'
     },
     hero: {
-      badge: 'Specialists in Structural, Geotechnical & Civil Engineering',
-      title: 'Lean Engineering.',
-      titleAccent: 'CAPEX Optimization in Energy & Mining.',
-      desc: 'Expert technical support for Utility-Scale projects, Transmission Lines, and Mining Infrastructure. We reduce costs between 10-25% through a network of freelance senior expert engineers.',
-      ctaPrimary: 'Optimize My Project',
-      ctaSecondary: 'Our Specialties'
+      badge: 'PMBOK 8 Mastery Guide - PMP 2024/2025',
+      title: 'Master the Future of',
+      titleAccent: 'Project Management.',
+      desc: 'Prepare for the PMP exam with the PMBOK 8 standard. Focus on principles, value delivery, artificial intelligence, and sustainability.',
+      ctaPrimary: 'Exam Simulator',
+      ctaSecondary: 'Explore Domains'
     },
-    whyChoose: {
-      title: 'Why Choose Lean Engineering?',
-      description: 'The traditional engineering model is broken. Large firms prioritize billable hours and overhead coverage. We prioritize project efficiency and client savings.',
-      features: [
-        { title: 'Curated Freelance Network', desc: 'The best minds, assembled per project need.' },
-        { title: 'Measurable Client Savings', desc: 'Focus on the bottom line, always.' }
-      ],
-      cta: 'Join Our Client Network',
-      cards: [
-        {
-          highlight: '40%',
-          subtitle: 'LOWER SERVICE FEES',
-          title: 'Ultra-Low Overhead',
-          description: 'Traditional firms bake massive office and partner salaries into your bill. Our network model keeps fixed costs near zero, passing 100% of those savings to you.'
-        },
-        {
-          highlight: '100%',
-          subtitle: 'SENIOR EXPERTS',
-          title: 'Senior Talent Only',
-          description: "Your project won't be a training ground for juniors. We only deploy engineers with 15+ years of experience in their specific technical domain."
-        },
-        {
-          highlight: 'LatAm',
-          subtitle: 'LOCAL EXPERTISE',
-          title: 'LatAm Specialty',
-          description: 'Based in Chile, we understand the regulatory, climatic, and logistical nuances of Latin American infrastructure projects.'
-        },
-        {
-          highlight: 'ROI',
-          subtitle: 'DATA-FOCUSED',
-          title: 'Transparent Savings',
-          description: "We don't hide behind jargon. We provide clear, measurable KPIs for every design change we suggest, showing exactly how much you save."
-        }
-      ]
-    },
-    valueModels: {
-      title: 'Value Creation and Shared Risk Models',
-      description: 'Business approaches designed to align our incentives with the financial success of your project.',
+    principles: {
+      title: '6 Management Principles',
       items: [
-        {
-          title: 'Design Review & Optimization',
-          description: 'Deep technical audits to identify inefficiencies and streamline systems.',
-          points: ['10-25% CAPEX/OPEX Reduction', 'Reduced material waste', 'Enhanced performance']
-        },
-        {
-          title: 'Value Engineering',
-          description: 'Rigorous analysis to ensure functions at the lowest lifecycle cost.',
-          points: ['Constructability analysis', 'Alternative assessment', 'Cost modeling']
-        },
-        {
-          title: 'On-Demand Senior Support',
-          description: 'Access senior engineers without the fixed costs of a full-time firm.',
-          points: ['Flexible retainers', 'Project-based fees', 'Specialist expertise']
-        },
-        {
-          title: 'Shared Risk Model',
-          description: 'We bill based on the actual savings generated for your project.',
-          points: ['Zero upfront risk', 'Performance-based incentives', 'Transparent ROI']
-        }
+        { id: 'p1', title: 'Stewardship', desc: 'Be a diligent, respectful steward.', icon: 'fa-shield-halved' },
+        { id: 'p2', title: 'Team', desc: 'Create a collaborative environment.', icon: 'fa-users' },
+        { id: 'p3', title: 'Stakeholders', desc: 'Engage effectively with stakeholders.', icon: 'fa-handshake' },
+        { id: 'p4', title: 'Value', desc: 'Continuous focus on benefit delivery.', icon: 'fa-gem' },
+        { id: 'p5', title: 'Systems', desc: 'Recognize and respond to interactions.', icon: 'fa-diagram-project' },
+        { id: 'p6', title: 'Leadership', desc: 'Motivate, influence, and learn.', icon: 'fa-crown' }
       ]
     },
-    services: {
-      title: 'Technical Support Areas',
+    domains: {
+      title: '7 Performance Domains',
+      desc: 'Critical areas for effective project outcome delivery.',
       items: [
-        {
-          id: 'renewable-energy',
-          title: 'Renewable Energy (Wind, Solar & BESS)',
-          description: 'Civil and structural engineering support for Utility-scale projects. Geotechnical review and foundation design for turbines and solar farms.',
-          icon: 'fa-wind',
-          benefits: ['Senior Geotechnical Review', 'Foundation Optimization', 'BESS & Skid Systems']
-        },
-        {
-          id: 'mining-structural',
-          title: 'Mining & Industrial Steel Structures',
-          description: 'Technical structural engineering review for warehouses, industrial buildings, and mining facilities.',
-          icon: 'fa-helmet-safety',
-          benefits: ['Steel Weight Optimization', 'Warehouses & Infrastructure', 'Rack & Support Design']
-        },
-        {
-          id: 'power-transmission',
-          title: 'Power Lines & Transmission Towers',
-          description: 'Advanced structural optimization of high-voltage towers (lattice & poles). CAPEX reduction through value engineering in transmission lines.',
-          icon: 'fa-bolt',
-          benefits: ['HV Tower Optimization', 'Detail Engineering', 'Material Reduction']
-        },
-        {
-          id: 'seismic-certification',
-          title: 'Seismic Equipment Certification',
-          description: 'Seismic qualification and certification of critical equipment (transformers, switchgear, inverters) for industrial plants and substations.',
-          icon: 'fa-house-crack',
-          benefits: ['Code Compliance Certs', 'Anchorage Analysis', 'Operational Continuity']
-        }
+        { id: 'd1', title: 'Stakeholders', desc: 'Proactive expectation management.', topics: ['Identification', 'Engagement'], icon: 'fa-user-group' },
+        { id: 'd2', title: 'Team', desc: 'Capacity and culture development.', topics: ['Leadership', 'Culture'], icon: 'fa-people-group' },
+        { id: 'd3', title: 'Development Approach', desc: 'Delivery cadence and lifecycle.', topics: ['Agile', 'Predictive', 'Hybrid'], icon: 'fa-code-branch' },
+        { id: 'd4', title: 'Planning', desc: 'Resource and time organization.', topics: ['Estimation', 'Schedule'], icon: 'fa-calendar-check' },
+        { id: 'd5', title: 'Project Work', desc: 'Managing physical and technical processes.', topics: ['Resources', 'Procurement'], icon: 'fa-briefcase' },
+        { id: 'd6', title: 'Delivery', desc: 'Scope and quality of deliverables.', topics: ['Value', 'Quality'], icon: 'fa-truck-fast' },
+        { id: 'd7', title: 'Measurement', desc: 'Assessing progress and performance.', topics: ['KPIs', 'Metrics'], icon: 'fa-chart-simple' }
       ]
     },
-    whyUs: {
-      title: 'Engineering with',
-      titleAccent: 'Value Focus',
-      items: [
-        {
-          title: 'Specialized Disciplines',
-          content: 'Senior experts in Structural, Civil, and Geotechnical Engineering focused exclusively on critical infrastructure.',
-          icon: 'fa-compass-drafting'
-        },
-        {
-          title: 'Quantity Reduction',
-          content: 'We audit existing designs to reduce over-engineered steel and concrete without compromising safety.',
-          icon: 'fa-weight-hanging'
-        },
-        {
-          title: 'LatAm Code Expertise',
-          content: 'Experts in seismic and wind regulations across Chile and the region, ensuring safe and lean designs.',
-          icon: 'fa-globe-americas'
-        }
+    processes: {
+      title: '40 Processes in 5 Focus Areas',
+      desc: 'The structured workflow for operational excellence.',
+      areas: [
+        { name: 'Initiating', count: 2, desc: 'Initial definition and authorization.' },
+        { name: 'Planning', count: 24, desc: 'Detailed execution roadmap.' },
+        { name: 'Executing', count: 10, desc: 'Performing the work.' },
+        { name: 'Monitoring', count: 12, desc: 'Controlling variations.' },
+        { name: 'Closing', count: 1, desc: 'Formal completion.' }
       ]
     },
-    comparison: {
-      title: 'Why choose our specialized support',
-      desc: 'Unlike general consultants, we apply precision engineering to maximize your project’s ROI.',
-      thPillar: 'Strategic Pillar',
-      thTrad: 'Traditional Firm',
-      thLean: 'Our Lean Support',
-      ctaTitle: 'Looking to reduce your project CAPEX?',
-      ctaDesc: 'Our technical reviews in geotechnics and structures often pay for themselves through material savings.',
-      ctaBtn: 'Request Technical Audit',
-      rows: [
-        { feature: 'Specialization', traditional: 'Generalist / Multi-discipline', leanEngineering: 'Energy, Mining & Infra Focus' },
-        { feature: 'Value Engineering', traditional: 'Standard conservative design', leanEngineering: 'Proactive cost optimization' },
-        { feature: 'Foundation Design', traditional: 'Over-designed by default', leanEngineering: 'Precise Geotechnical Fit' },
-        { feature: 'Seismic Certification', traditional: 'Outsourced or generic', leanEngineering: 'Senior In-house Specialist' }
-      ]
+    business: {
+      title: 'Business Evolution',
+      aiTitle: 'AI in Project Management',
+      aiDesc: 'Schedule optimization and predictive risk analysis through advanced algorithms.',
+      sustainTitle: 'Sustainability',
+      sustainDesc: 'ESG criteria integration and circular economy within the project lifecycle.'
+    },
+    exam: {
+      title: 'PMP 8 Simulator',
+      desc: 'Categorized question bank for your certification.',
+      categories: ['People', 'Process', 'Business', 'Agile', 'Hybrid', 'Risk', 'Value', 'AI', 'Sustainability'],
+      startBtn: 'Start Practice',
+      nextBtn: 'Next Question',
+      finishBtn: 'Finish and View Score',
+      scoreTitle: 'Your Final Score'
     },
     calc: {
-      title: 'Savings Estimator',
-      desc: 'Calculate the potential savings in your infrastructure or energy project through technical optimization.',
-      labelBudget: 'Project Budget (Thousands of USD)',
-      labelComplexity: 'Design Complexity',
-      complexities: ['Standard', 'Advanced', 'Critical'],
-      note: '*Calculations based on historic 10-25% savings in structural and civil items. Values in thousands of USD.',
-      resultTitle: 'Est. Savings (Thousands USD)',
-      labelFee: 'Est. Fee (Thousands)',
-      labelRoi: 'Service ROI',
-      btn: 'Get Savings Report'
+      title: 'Savings Calculator',
+      desc: 'Estimate the financial impact of process optimization.',
+      labelBudget: 'CAPEX Budget',
+      labelComplexity: 'Project Complexity',
+      complexities: ['Simple', 'Medium', 'Complex'],
+      note: 'Calculations are estimates based on industry benchmarks.',
+      resultTitle: 'Estimated Savings',
+      labelFee: 'Typical Fees',
+      labelRoi: 'Return Multiplier',
+      btn: 'Request Audit'
     },
-    contact: {
-      title: 'Start Optimizing',
-      desc: 'Share your energy, mining, or infrastructure project details for a preliminary technical assessment.',
-      labels: {
-        name: 'Full Name',
-        email: 'Email',
-        sector: 'Project Sector',
-        service: 'Required Specialty',
-        brief: 'Project Brief (Renewables, Towers, Mining...)',
-        submit: 'Send Support Request'
-      },
-      sectors: ['Solar / Wind Energy', 'BESS Systems', 'Power Transmission', 'Mining / Industrial'],
-      services: ['Geotechnical / Foundation Review', 'Structural Optimization', 'Seismic Certification', 'Value Engineering'],
-      info: {
-        location: 'Santiago, Chile',
-        email: 'leaneng@proton.me',
-        phone: '+56 9 5250 4101'
-      }
+    comparison: {
+      title: 'Competitive Difference',
+      desc: 'Why Lean Engineering outperforms traditional management.',
+      thPillar: 'Pillar',
+      thTrad: 'Traditional Management',
+      thLean: 'Lean Engineering',
+      rows: [
+        { feature: 'Delivery Time', traditional: 'Slow / Sequential', leanEngineering: 'Fast / Agile' },
+        { feature: 'Cost', traditional: 'Rigid / Over-budget', leanEngineering: 'Optimized / On-demand' },
+        { feature: 'Quality', traditional: 'Inspection-based', leanEngineering: 'Process-based' }
+      ],
+      ctaTitle: 'Ready for a change?',
+      ctaDesc: 'Improve your operating margins today.',
+      ctaBtn: 'Start Now'
+    },
+    whyChoose: {
+      title: 'Why Choose Us',
+      description: 'We combine technical expertise with advanced agile methodologies.',
+      features: [
+        { title: 'Global Certification', desc: 'Certified experts in PMP and PMBOK 8.' },
+        { title: 'Applied AI', desc: 'Automation of repetitive tasks.' }
+      ],
+      cta: 'View Details',
+      cards: [
+        { highlight: '15%', subtitle: 'AVG SAVINGS', title: 'Cost Reduction', description: 'We optimize operating expenses without sacrificing quality.' },
+        { highlight: '2X', subtitle: 'SPEED', title: 'Accelerated Delivery', description: 'We reduce the time-to-market of your projects.' }
+      ]
     }
   }
 };

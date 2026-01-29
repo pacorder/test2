@@ -1,11 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
-import SavingsCalculator from './components/SavingsCalculator';
-import Comparison from './components/Comparison';
-import WhyChooseUs from './components/WhyChooseUs';
+import Quiz from './components/Quiz';
 import TechSphere from './components/TechSphere';
-import { CONTENT } from './constants';
+import { CONTENT, QUESTIONS } from './constants';
 import { Language } from './types';
 
 const App: React.FC = () => {
@@ -15,6 +13,7 @@ const App: React.FC = () => {
   });
 
   const content = CONTENT[lang];
+  const questions = QUESTIONS[lang];
 
   useEffect(() => {
     localStorage.setItem('site_lang', lang);
@@ -26,16 +25,19 @@ const App: React.FC = () => {
       <Header 
         lang={lang} 
         onLangChange={setLang} 
-        content={content.nav} 
+        content={{
+          services: content.nav.principles,
+          whyUs: content.nav.domains,
+          calc: content.nav.processes,
+          contact: content.nav.exam,
+          cta: content.nav.cta
+        }} 
       />
 
       {/* Hero Section */}
       <section id="hero" className="relative pt-32 pb-20 md:pt-48 md:pb-32 bg-slate-900 overflow-hidden">
-        {/* Animated Background Element */}
         <TechSphere />
-        
         <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-l from-blue-600/10 to-transparent pointer-events-none"></div>
-        <div className="absolute -bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[120px]"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
@@ -56,10 +58,10 @@ const App: React.FC = () => {
               {content.hero.desc}
             </p>
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              <a href="#contact" className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-bold rounded-2xl shadow-xl shadow-blue-600/30 transition-all text-center">
+              <a href="#exam" className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-bold rounded-2xl shadow-xl shadow-blue-600/30 transition-all text-center">
                 {content.hero.ctaPrimary}
               </a>
-              <a href="#services" className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white text-lg font-bold rounded-2xl border border-slate-700 transition-all text-center">
+              <a href="#domains" className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white text-lg font-bold rounded-2xl border border-slate-700 transition-all text-center">
                 {content.hero.ctaSecondary}
               </a>
             </div>
@@ -67,180 +69,124 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Why Choose Us Inspired Section */}
-      <div id="why-us" className="scroll-mt-20">
-        <WhyChooseUs content={content.whyChoose} />
-      </div>
-
-      {/* Value Creation Models Section */}
-      <section id="value-models" className="py-24 bg-white scroll-mt-20 border-t border-slate-100">
+      {/* 6 Principles Section */}
+      <section id="principles" className="py-24 bg-white scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4">{content.valueModels.title}</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto text-lg">{content.valueModels.description}</p>
-            <div className="w-24 h-1.5 bg-blue-600 mx-auto rounded-full mt-6"></div>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {content.valueModels.items.map((item, idx) => (
-              <div key={idx} className="bg-slate-50 p-8 rounded-3xl border border-slate-200 hover:shadow-lg transition-all flex flex-col h-full">
-                <div className="mb-6">
-                  <span className="text-blue-600 font-bold text-lg">0{idx + 1}</span>
-                </div>
-                <h3 className="text-xl font-bold mb-4 text-slate-900">{item.title}</h3>
-                <p className="text-slate-600 mb-6 text-sm flex-grow">{item.description}</p>
-                <ul className="space-y-3 pt-6 border-t border-slate-200">
-                  {item.points.map((point, i) => (
-                    <li key={i} className="flex items-start text-xs font-semibold text-slate-500">
-                      <i className="fa-solid fa-circle-check text-emerald-500 mr-2 mt-0.5"></i>
-                      {point}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section id="services" className="py-24 bg-slate-50 scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4">{content.services.title}</h2>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4">{content.principles.title}</h2>
             <div className="w-24 h-1.5 bg-blue-600 mx-auto rounded-full"></div>
           </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {content.services.items.map((service) => (
-              <div key={service.id} className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-xl hover:border-blue-200 transition-all group">
-                <div className="w-14 h-14 bg-slate-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-inner">
-                  <i className={`fa-solid ${service.icon} text-2xl`}></i>
+          <div className="grid grid-cols-2 lg:grid-cols-6 gap-6">
+            {content.principles.items.map((item) => (
+              <div key={item.id} className="group p-6 bg-slate-50 rounded-2xl hover:bg-blue-600 hover:text-white transition-all text-center">
+                <div className="w-12 h-12 bg-white text-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-sm group-hover:scale-110 transition-transform">
+                  <i className={`fa-solid ${item.icon} text-xl`}></i>
                 </div>
-                <h3 className="text-xl font-bold mb-4 text-slate-900">{service.title}</h3>
-                <p className="text-slate-600 mb-6 text-sm leading-relaxed">{service.description}</p>
-                <ul className="space-y-2">
-                  {service.benefits.map((benefit, i) => (
-                    <li key={i} className="flex items-center text-xs font-semibold text-slate-500">
-                      <i className="fa-solid fa-check text-emerald-500 mr-2"></i>
-                      {benefit}
-                    </li>
-                  ))}
-                </ul>
+                <h3 className="font-bold text-sm mb-2">{item.title}</h3>
+                <p className="text-[10px] opacity-70 leading-tight">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <Comparison content={content.comparison} />
-      
-      <div id="calculator" className="scroll-mt-20">
-        <SavingsCalculator content={content.calc} />
-      </div>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-24 bg-slate-50 scroll-mt-20">
+      {/* 7 Domains Section */}
+      <section id="domains" className="py-24 bg-slate-50 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="bg-white rounded-[40px] shadow-2xl overflow-hidden flex flex-col lg:flex-row">
-            <div className="lg:w-1/3 bg-blue-700 p-12 text-white">
-              <h2 className="text-3xl font-bold mb-6">{content.contact.title}</h2>
-              <p className="text-blue-100 mb-10 text-lg">
-                {content.contact.desc}
-              </p>
-              <div className="space-y-6">
-                <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
-                    <i className="fa-solid fa-location-dot"></i>
-                  </div>
-                  <span>{content.contact.info.location}</span>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4">{content.domains.title}</h2>
+            <p className="text-slate-600 max-w-2xl mx-auto">{content.domains.desc}</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {content.domains.items.map((domain) => (
+              <div key={domain.id} className="bg-white p-8 rounded-3xl border border-slate-200 hover:shadow-xl transition-all group">
+                <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                  <i className={`fa-solid ${domain.icon} text-2xl`}></i>
                 </div>
-                <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
-                    <i className="fa-solid fa-envelope"></i>
-                  </div>
-                  <a href={`mailto:${content.contact.info.email}`} className="text-white hover:text-blue-200 transition-colors">
-                    {content.contact.info.email}
-                  </a>
+                <h3 className="text-xl font-bold mb-3">{domain.title}</h3>
+                <p className="text-slate-500 text-sm mb-6 leading-relaxed">{domain.desc}</p>
+                <div className="flex flex-wrap gap-2">
+                  {domain.topics.map(t => (
+                    <span key={t} className="px-2 py-1 bg-slate-100 text-[10px] font-bold text-slate-500 rounded uppercase tracking-wider">{t}</span>
+                  ))}
                 </div>
-                <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
-                    <i className="fa-solid fa-phone"></i>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Processes Infographic */}
+      <section id="processes" className="py-24 bg-white scroll-mt-20">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4">{content.processes.title}</h2>
+            <p className="text-slate-600">{content.processes.desc}</p>
+          </div>
+          <div className="relative">
+            <div className="absolute top-1/2 left-0 w-full h-1 bg-slate-100 -translate-y-1/2 hidden lg:block"></div>
+            <div className="grid lg:grid-cols-5 gap-8">
+              {content.processes.areas.map((area, idx) => (
+                <div key={area.name} className="relative z-10 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm text-center hover:border-blue-500 transition-colors">
+                  <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-sm">
+                    {idx + 1}
                   </div>
-                  <a href={`tel:${content.contact.info.phone.replace(/\s+/g, '')}`} className="text-white hover:text-blue-200 transition-colors">
-                    {content.contact.info.phone}
-                  </a>
+                  <h4 className="font-bold text-slate-900 mb-1">{area.name}</h4>
+                  <div className="text-blue-600 font-black text-2xl mb-2">{area.count}</div>
+                  <p className="text-xs text-slate-500 leading-tight">{area.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Exam Simulator Component */}
+      <Quiz questions={questions} content={content.exam} />
+
+      {/* Business & Evolution Section */}
+      <section id="business" className="py-24 bg-slate-900 text-white scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-4xl font-extrabold mb-8">{content.business.title}</h2>
+              <div className="space-y-12">
+                <div className="flex gap-6">
+                  <div className="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <i className="fa-solid fa-microchip text-blue-400 text-2xl"></i>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold mb-3 text-blue-400">{content.business.aiTitle}</h3>
+                    <p className="text-slate-400 leading-relaxed">{content.business.aiDesc}</p>
+                  </div>
+                </div>
+                <div className="flex gap-6">
+                  <div className="w-16 h-16 bg-emerald-500/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <i className="fa-solid fa-leaf text-emerald-400 text-2xl"></i>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold mb-3 text-emerald-400">{content.business.sustainTitle}</h3>
+                    <p className="text-slate-400 leading-relaxed">{content.business.sustainDesc}</p>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div className="lg:w-2/3 p-12">
-              <form 
-                action="https://formspree.io/f/xdagqzvo" 
-                method="POST"
-                className="grid sm:grid-cols-2 gap-6"
-              >
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">{content.contact.labels.name}</label>
-                  <input 
-                    name="name"
-                    type="text" 
-                    required
-                    className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" 
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">{content.contact.labels.email}</label>
-                  <input 
-                    name="email"
-                    type="email" 
-                    required
-                    className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" 
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">{content.contact.labels.sector}</label>
-                  <select 
-                    name="sector"
-                    className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                  >
-                    {content.contact.sectors.map(s => <option key={s} value={s}>{s}</option>)}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">{content.contact.labels.service}</label>
-                  <select 
-                    name="service"
-                    className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                  >
-                    {content.contact.services.map(s => <option key={s} value={s}>{s}</option>)}
-                  </select>
-                </div>
-                <div className="sm:col-span-2">
-                  <label className="block text-sm font-bold text-slate-700 mb-2">{content.contact.labels.brief}</label>
-                  <textarea 
-                    name="message"
-                    rows={4} 
-                    required
-                    className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                  ></textarea>
-                </div>
-                <div className="sm:col-span-2">
-                  <button 
-                    type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-2xl transition-all shadow-xl shadow-blue-600/20 transform hover:-translate-y-1"
-                  >
-                    {content.contact.labels.submit}
-                  </button>
-                </div>
-              </form>
+            <div className="bg-gradient-to-br from-blue-600 to-blue-800 p-12 rounded-[40px] shadow-2xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl group-hover:bg-white/20 transition-all"></div>
+              <h3 className="text-3xl font-black mb-6">¿Preparado para certificar?</h3>
+              <p className="text-blue-100 mb-10 text-lg leading-relaxed">
+                Nuestra plataforma de PMBOK 8 está actualizada con los últimos estándares globales de gestión de proyectos.
+              </p>
+              <a href="#exam" className="inline-block bg-white text-blue-700 font-bold px-8 py-4 rounded-2xl shadow-lg hover:scale-105 transition-transform">
+                Comenzar ahora
+              </a>
             </div>
           </div>
         </div>
       </section>
 
       <footer className="py-12 bg-white border-t border-slate-100 text-center">
-        <p className="text-slate-400 text-sm">© {new Date().getFullYear()} Lean Engineering Solutions. Santiago, Chile.</p>
+        <p className="text-slate-400 text-sm">© {new Date().getFullYear()} PMP Mastery Hub - PMBOK 8 Standard. Santiago, Chile.</p>
       </footer>
     </div>
   );

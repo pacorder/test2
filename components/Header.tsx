@@ -1,11 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
-import { Language, SiteContent } from '../types';
+import { Language } from '../types';
 
 interface HeaderProps {
   lang: Language;
   onLangChange: (newLang: Language) => void;
-  content: SiteContent['nav'];
+  // Adjusted to match usage in App.tsx mapping (services, whyUs, etc.)
+  content: {
+    services: string;
+    whyUs: string;
+    calc: string;
+    contact: string;
+    cta: string;
+  };
 }
 
 const Header: React.FC<HeaderProps> = ({ lang, onLangChange, content }) => {
@@ -20,11 +27,12 @@ const Header: React.FC<HeaderProps> = ({ lang, onLangChange, content }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Using the mapped properties passed from App.tsx
   const navLinks = [
-    { name: content.services, href: '#services' },
-    { name: content.whyUs, href: '#why-us' },
-    { name: content.calc, href: '#calculator' },
-    { name: content.contact, href: '#contact' }
+    { name: content.services, href: '#principles' },
+    { name: content.whyUs, href: '#domains' },
+    { name: content.calc, href: '#processes' },
+    { name: content.contact, href: '#exam' }
   ];
 
   return (
@@ -66,7 +74,7 @@ const Header: React.FC<HeaderProps> = ({ lang, onLangChange, content }) => {
               </button>
             </div>
 
-            <a href="#contact" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full text-sm font-bold transition-all shadow-md hover:shadow-lg">
+            <a href="#exam" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full text-sm font-bold transition-all shadow-md hover:shadow-lg">
               {content.cta}
             </a>
           </nav>
@@ -95,7 +103,7 @@ const Header: React.FC<HeaderProps> = ({ lang, onLangChange, content }) => {
              <button onClick={() => { onLangChange('en'); setIsMenuOpen(false); }} className={`font-bold ${lang === 'en' ? 'text-blue-600' : 'text-slate-400'}`}>EN</button>
           </div>
           <a 
-            href="#contact" 
+            href="#exam" 
             onClick={() => setIsMenuOpen(false)}
             className="bg-blue-600 text-white px-6 py-4 rounded-xl text-center font-bold"
           >

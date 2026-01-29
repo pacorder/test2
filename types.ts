@@ -1,45 +1,36 @@
 
 export type Language = 'es' | 'en';
 
-export interface Service {
+export interface PMPrinciple {
   id: string;
   title: string;
-  description: string;
-  icon: string;
-  benefits: string[];
-}
-
-export interface ValueModel {
-  title: string;
-  description: string;
-  points: string[];
-}
-
-export interface BenefitItem {
-  title: string;
-  content: string;
+  desc: string;
   icon: string;
 }
 
-export interface ComparisonRow {
-  feature: string;
-  traditional: string;
-  leanEngineering: string;
+export interface PMDomain {
+  id: string;
+  title: string;
+  desc: string;
+  topics: string[];
+  icon: string;
 }
 
-export interface WhyChooseCard {
-  highlight: string;
-  subtitle: string;
-  title: string;
-  description: string;
+export interface Question {
+  id: string;
+  category: string;
+  text: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
 }
 
 export interface SiteContent {
   nav: {
-    services: string;
-    whyUs: string;
-    calc: string;
-    contact: string;
+    principles: string;
+    domains: string;
+    processes: string;
+    exam: string;
     cta: string;
   };
   hero: {
@@ -50,41 +41,41 @@ export interface SiteContent {
     ctaPrimary: string;
     ctaSecondary: string;
   };
-  whyChoose: {
+  principles: {
     title: string;
-    description: string;
-    features: {
-      title: string;
-      desc: string;
-    }[];
-    cta: string;
-    cards: WhyChooseCard[];
+    items: PMPrinciple[];
   };
-  valueModels: {
-    title: string;
-    description: string;
-    items: ValueModel[];
-  };
-  services: {
-    title: string;
-    items: Service[];
-  };
-  whyUs: {
-    title: string;
-    titleAccent: string;
-    items: BenefitItem[];
-  };
-  comparison: {
+  domains: {
     title: string;
     desc: string;
-    thPillar: string;
-    thTrad: string;
-    thLean: string;
-    ctaTitle: string;
-    ctaDesc: string;
-    ctaBtn: string;
-    rows: ComparisonRow[];
+    items: PMDomain[];
   };
+  processes: {
+    title: string;
+    desc: string;
+    areas: {
+      name: string;
+      count: number;
+      desc: string;
+    }[];
+  };
+  business: {
+    title: string;
+    aiTitle: string;
+    aiDesc: string;
+    sustainTitle: string;
+    sustainDesc: string;
+  };
+  exam: {
+    title: string;
+    desc: string;
+    categories: string[];
+    startBtn: string;
+    nextBtn: string;
+    finishBtn: string;
+    scoreTitle: string;
+  };
+  // Fix for: Error in file components/SavingsCalculator.tsx on line 6: Property 'calc' does not exist on type 'SiteContent'.
   calc: {
     title: string;
     desc: string;
@@ -97,23 +88,36 @@ export interface SiteContent {
     labelRoi: string;
     btn: string;
   };
-  contact: {
+  // Fix for: Error in file components/Comparison.tsx on line 6: Property 'comparison' does not exist on type 'SiteContent'.
+  comparison: {
     title: string;
     desc: string;
-    labels: {
-      name: string;
-      email: string;
-      sector: string;
-      service: string;
-      brief: string;
-      submit: string;
-    };
-    sectors: string[];
-    services: string[];
-    info: {
-      location: string;
-      email: string;
-      phone: string;
-    };
+    thPillar: string;
+    thTrad: string;
+    thLean: string;
+    rows: {
+      feature: string;
+      traditional: string;
+      leanEngineering: string;
+    }[];
+    ctaTitle: string;
+    ctaDesc: string;
+    ctaBtn: string;
+  };
+  // Fix for: Error in file components/WhyChooseUs.tsx on line 6: Property 'whyChoose' does not exist on type 'SiteContent'.
+  whyChoose: {
+    title: string;
+    description: string;
+    features: {
+      title: string;
+      desc: string;
+    }[];
+    cta: string;
+    cards: {
+      highlight: string;
+      subtitle: string;
+      title: string;
+      description: string;
+    }[];
   };
 }
