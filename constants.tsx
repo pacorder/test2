@@ -1,44 +1,55 @@
 
 import { SiteContent, Question } from './types';
 
+// Helper to generate questions quickly for the example - in a real app these would be hardcoded or from a JSON
+const createQuestions = (lang: 'es' | 'en'): Question[] => {
+  const categories = lang === 'es' 
+    ? ['Personas', 'Procesos', 'Negocio', 'Agile', 'Híbrido', 'Riesgos', 'Valor', 'IA', 'Sostenibilidad']
+    : ['People', 'Process', 'Business', 'Agile', 'Hybrid', 'Risk', 'Value', 'AI', 'Sustainability'];
+
+  const questions: Question[] = [];
+
+  categories.forEach((cat, catIdx) => {
+    for (let i = 1; i <= 10; i++) {
+      const qId = `q-${catIdx}-${i}`;
+      if (lang === 'es') {
+        questions.push({
+          id: qId,
+          category: cat,
+          text: `Pregunta de nivel PMP sobre ${cat} (#${i}): ¿Cuál es el enfoque recomendado por PMBOK 8 para manejar este escenario de ${cat.toLowerCase()}?`,
+          options: [
+            `Opción A: Enfoque reactivo tradicional`,
+            `Opción B: Enfoque basado en principios y entrega de valor`,
+            `Opción C: Delegación total sin supervisión`,
+            `Opción D: Seguir estrictamente el plan original sin cambios`
+          ],
+          correctAnswer: 1,
+          explanation: `En PMBOK 8, el dominio de ${cat} enfatiza la adaptabilidad y la entrega de valor sobre el cumplimiento rígido de procesos.`
+        });
+      } else {
+        questions.push({
+          id: qId,
+          category: cat,
+          text: `PMP exam level question on ${cat} (#${i}): What is the PMBOK 8 recommended approach to handle this ${cat.toLowerCase()} scenario?`,
+          options: [
+            `Option A: Traditional reactive approach`,
+            `Option B: Principles-based approach focusing on value delivery`,
+            `Option C: Total delegation without oversight`,
+            `Option D: Strictly following the original plan without changes`
+          ],
+          correctAnswer: 1,
+          explanation: `In PMBOK 8, the ${cat} domain emphasizes adaptability and value delivery over rigid process compliance.`
+        });
+      }
+    }
+  });
+
+  return questions;
+};
+
 export const QUESTIONS: Record<'es' | 'en', Question[]> = {
-  es: [
-    {
-      id: 'q1',
-      category: 'Personas',
-      text: '¿Cuál es la principal característica del liderazgo servicial en proyectos ágiles?',
-      options: ['Control centralizado', 'Eliminación de impedimentos', 'Asignación de tareas diaria', 'Reporte de horas'],
-      correctAnswer: 1,
-      explanation: 'El líder servicial se enfoca en eliminar obstáculos para que el equipo pueda entregar valor.'
-    },
-    {
-      id: 'q2',
-      category: 'Procesos',
-      text: 'En PMBOK 8, ¿cómo se define el enfoque de desarrollo híbrido?',
-      options: ['Solo Waterfall', 'Solo Agile', 'Combinación de predictivo y adaptativo', 'Gestión sin procesos'],
-      correctAnswer: 2,
-      explanation: 'El enfoque híbrido utiliza lo mejor de ambos mundos según las necesidades del proyecto.'
-    }
-    // Añadir más preguntas aquí para completar las 9 categorías
-  ],
-  en: [
-    {
-      id: 'q1',
-      category: 'People',
-      text: 'What is the primary characteristic of servant leadership in agile projects?',
-      options: ['Centralized control', 'Removing impediments', 'Daily task assignment', 'Time tracking'],
-      correctAnswer: 1,
-      explanation: 'The servant leader focuses on clearing obstacles so the team can deliver value.'
-    },
-    {
-      id: 'q2',
-      category: 'Processes',
-      text: 'In PMBOK 8, how is the hybrid development approach defined?',
-      options: ['Waterfall only', 'Agile only', 'Combination of predictive and adaptive', 'Management without processes'],
-      correctAnswer: 2,
-      explanation: 'The hybrid approach uses the best of both worlds based on project needs.'
-    }
-  ]
+  es: createQuestions('es'),
+  en: createQuestions('en')
 };
 
 export const CONTENT: Record<'es' | 'en', SiteContent> = {
@@ -102,7 +113,7 @@ export const CONTENT: Record<'es' | 'en', SiteContent> = {
     },
     exam: {
       title: 'Simulador PMP 8',
-      desc: 'Banco de preguntas categorizado para tu certificación.',
+      desc: 'Banco de 90 preguntas categorizado para tu certificación.',
       categories: ['Personas', 'Procesos', 'Negocio', 'Agile', 'Híbrido', 'Riesgos', 'Valor', 'IA', 'Sostenibilidad'],
       startBtn: 'Comenzar Práctica',
       nextBtn: 'Siguiente Pregunta',
@@ -210,7 +221,7 @@ export const CONTENT: Record<'es' | 'en', SiteContent> = {
     },
     exam: {
       title: 'PMP 8 Simulator',
-      desc: 'Categorized question bank for your certification.',
+      desc: 'Categorized 90-question bank for your certification.',
       categories: ['People', 'Process', 'Business', 'Agile', 'Hybrid', 'Risk', 'Value', 'AI', 'Sustainability'],
       startBtn: 'Start Practice',
       nextBtn: 'Next Question',

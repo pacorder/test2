@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Question, SiteContent } from '../types';
 
 interface QuizProps {
@@ -8,9 +8,18 @@ interface QuizProps {
 }
 
 const Quiz: React.FC<QuizProps> = ({ questions, content }) => {
+  const [selectedCategory, setSelectedCategory] = useState<string | 'All'>('All');
   const [currentIdx, setCurrentIdx] = useState<number | null>(null);
   const [userAnswers, setUserAnswers] = useState<Record<string, number>>({});
   const [showResults, setShowResults] = useState(false);
+
+  const filteredQuestions = useMemo(() => {
+    if (selectedCategory === 'All') {
+      // Return 20 random questions or all? Let's do all but shuffle them
+      return [...questions].sort(() => Math.random() - 0.5);
+    }
+    return questions.filter(q => q.category === selectedCategory);
+  }, [questions, selectedCategory]);
 
   const startQuiz = () => {
     setCurrentIdx(0);
@@ -20,13 +29,13 @@ const Quiz: React.FC<QuizProps> = ({ questions, content }) => {
 
   const handleAnswer = (optionIdx: number) => {
     if (currentIdx === null) return;
-    const qId = questions[currentIdx].id;
+    const qId = filteredQuestions[currentIdx].id;
     setUserAnswers(prev => ({ ...prev, [qId]: optionIdx }));
   };
 
   const nextQuestion = () => {
     if (currentIdx === null) return;
-    if (currentIdx < questions.length - 1) {
+    if (currentIdx < filteredQuestions.length - 1) {
       setCurrentIdx(currentIdx + 1);
     } else {
       setShowResults(true);
@@ -36,7 +45,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, content }) => {
 
   const calculateScore = () => {
     let score = 0;
-    questions.forEach(q => {
+    filteredQuestions.forEach(q => {
       if (userAnswers[q.id] === q.correctAnswer) score++;
     });
     return score;
@@ -48,26 +57,39 @@ const Quiz: React.FC<QuizProps> = ({ questions, content }) => {
         <div className="text-center mb-12">
           <h2 className="text-4xl font-extrabold text-slate-900 mb-4">{content.title}</h2>
           <p className="text-slate-600">{content.desc}</p>
-          <div className="flex flex-wrap justify-center gap-2 mt-6">
-            {content.categories.map(cat => (
-              <span key={cat} className="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-bold text-slate-500 uppercase">
-                {cat}
-              </span>
-            ))}
-          </div>
         </div>
 
-        <div className="bg-white rounded-[32px] shadow-xl border border-slate-100 p-8 md:p-12 min-h-[400px] flex flex-col justify-center">
+        <div className="bg-white rounded-[32px] shadow-xl border border-slate-100 p-8 md:p-12 min-h-[500px] flex flex-col justify-center">
           {currentIdx === null && !showResults && (
             <div className="text-center">
               <i className="fa-solid fa-graduation-cap text-6xl text-blue-600 mb-6"></i>
-              <h3 className="text-2xl font-bold mb-8 text-slate-800">¿Listo para poner a prueba tus conocimientos?</h3>
+              <h3 className="text-2xl font-bold mb-6 text-slate-800">Selecciona un área de estudio</h3>
+              
+              <div className="flex flex-wrap justify-center gap-3 mb-10">
+                <button 
+                  onClick={() => setSelectedCategory('All')}
+                  className={`px-4 py-2 rounded-xl border-2 font-bold transition-all ${selectedCategory === 'All' ? 'bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-200' : 'bg-white border-slate-100 text-slate-500 hover:border-blue-200'}`}
+                >
+                  Examen Completo (90 q)
+                </button>
+                {content.categories.map(cat => (
+                  <button 
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`px-4 py-2 rounded-xl border-2 font-bold transition-all ${selectedCategory === cat ? 'bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-200' : 'bg-white border-slate-100 text-slate-500 hover:border-blue-200'}`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+
               <button 
                 onClick={startQuiz}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-2xl transition-all shadow-lg"
+                className="bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 px-12 rounded-2xl transition-all shadow-xl transform hover:-translate-y-1"
               >
                 {content.startBtn}
               </button>
+              <p className="mt-4 text-xs text-slate-400">Preguntas disponibles en esta sesión: {filteredQuestions.length}</p>
             </div>
           )}
 
@@ -75,24 +97,24 @@ const Quiz: React.FC<QuizProps> = ({ questions, content }) => {
             <div className="animate-fade-in">
               <div className="flex justify-between items-center mb-8">
                 <span className="text-sm font-bold text-blue-600 uppercase tracking-widest">
-                  Pregunta {currentIdx + 1} de {questions.length}
+                  Pregunta {currentIdx + 1} de {filteredQuestions.length}
                 </span>
                 <span className="px-3 py-1 bg-slate-100 text-slate-500 rounded-lg text-xs font-bold">
-                  {questions[currentIdx].category}
+                  {filteredQuestions[currentIdx].category}
                 </span>
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-8 leading-relaxed">
-                {questions[currentIdx].text}
+                {filteredQuestions[currentIdx].text}
               </h3>
               <div className="space-y-4 mb-10">
-                {questions[currentIdx].options.map((opt, i) => (
+                {filteredQuestions[currentIdx].options.map((opt, i) => (
                   <button
                     key={i}
                     onClick={() => handleAnswer(i)}
-                    className={`w-full text-left p-5 rounded-2xl border-2 transition-all font-semibold ${userAnswers[questions[currentIdx].id] === i ? 'border-blue-600 bg-blue-50 text-blue-700' : 'border-slate-100 hover:border-blue-200 hover:bg-slate-50 text-slate-600'}`}
+                    className={`w-full text-left p-5 rounded-2xl border-2 transition-all font-semibold ${userAnswers[filteredQuestions[currentIdx].id] === i ? 'border-blue-600 bg-blue-50 text-blue-700' : 'border-slate-100 hover:border-blue-200 hover:bg-slate-50 text-slate-600'}`}
                   >
                     <div className="flex items-center gap-4">
-                      <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${userAnswers[questions[currentIdx].id] === i ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-400'}`}>
+                      <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${userAnswers[filteredQuestions[currentIdx].id] === i ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-400'}`}>
                         {String.fromCharCode(65 + i)}
                       </span>
                       {opt}
@@ -100,13 +122,19 @@ const Quiz: React.FC<QuizProps> = ({ questions, content }) => {
                   </button>
                 ))}
               </div>
-              <div className="flex justify-end">
+              <div className="flex justify-between items-center">
+                 <button 
+                  onClick={() => { setCurrentIdx(null); setSelectedCategory('All'); }}
+                  className="text-slate-400 hover:text-slate-600 text-sm font-bold"
+                >
+                  <i className="fa-solid fa-arrow-left mr-2"></i> Abandonar
+                </button>
                 <button 
                   onClick={nextQuestion}
-                  disabled={userAnswers[questions[currentIdx].id] === undefined}
-                  className="bg-slate-900 hover:bg-slate-800 disabled:opacity-50 text-white font-bold py-4 px-8 rounded-xl transition-all"
+                  disabled={userAnswers[filteredQuestions[currentIdx].id] === undefined}
+                  className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold py-4 px-10 rounded-xl transition-all shadow-lg"
                 >
-                  {currentIdx === questions.length - 1 ? content.finishBtn : content.nextBtn}
+                  {currentIdx === filteredQuestions.length - 1 ? content.finishBtn : content.nextBtn}
                 </button>
               </div>
             </div>
@@ -119,16 +147,36 @@ const Quiz: React.FC<QuizProps> = ({ questions, content }) => {
               </div>
               <h3 className="text-3xl font-extrabold text-slate-900 mb-2">{content.scoreTitle}</h3>
               <div className="text-6xl font-black text-blue-600 mb-8">
-                {calculateScore()} / {questions.length}
+                {calculateScore()} / {filteredQuestions.length}
               </div>
-              <p className="text-slate-500 mb-10 max-w-sm mx-auto">
-                {calculateScore() === questions.length ? "¡Excelente! Estás listo para el PMP." : "Buen intento. Sigue repasando los dominios del PMBOK 8."}
-              </p>
+              
+              <div className="max-w-md mx-auto mb-10 text-left bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                <h4 className="font-bold text-slate-700 mb-4">Análisis por categorías:</h4>
+                <div className="space-y-3">
+                  {Array.from(new Set(filteredQuestions.map(q => q.category))).map(cat => {
+                    const total = filteredQuestions.filter(q => q.category === cat).length;
+                    const correct = filteredQuestions.filter(q => q.category === cat && userAnswers[q.id] === q.correctAnswer).length;
+                    const percent = Math.round((correct / total) * 100);
+                    return (
+                      <div key={cat} className="flex flex-col">
+                        <div className="flex justify-between text-xs font-bold mb-1">
+                          <span>{cat}</span>
+                          <span>{percent}%</span>
+                        </div>
+                        <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                          <div className={`h-full transition-all ${percent > 70 ? 'bg-emerald-500' : 'bg-amber-500'}`} style={{ width: `${percent}%` }}></div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+
               <button 
-                onClick={startQuiz}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-2xl transition-all"
+                onClick={() => { setShowResults(false); setCurrentIdx(null); }}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-2xl transition-all shadow-xl"
               >
-                Reintentar Simulacro
+                Volver al Menú
               </button>
             </div>
           )}
